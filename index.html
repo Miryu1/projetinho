@@ -91,12 +91,6 @@
     </style>
 </head>
 <body>
-    <!-- Player de música (MP3) -->
-    <audio id="background-music" autoplay loop>
-        <source src="audio/musica.mp3/Here With Me - d4vd.mp3" type="audio/mpeg">
-        Seu navegador não suporta áudio embutido.
-    </audio>
-
     <h1>Você gosta de mim?</h1>
     <div id="container">
         <button id="sim">Sim</button>
@@ -106,6 +100,12 @@
     <div id="mensagem-final">Aceita por favor Gege 😢😭💔🥺</div>
     <div id="mensagem-aceitou">Muito obrigado por aceitar querida! ❤️🥰</div>
     <div id="mensagem-escolha">Ainda bem que vc tem escolha! ❤️❤️ kkkkkkkkkk beijos gege</div>
+
+    <!-- Player de música invisível -->
+    <audio id="background-music" loop>
+        <source src="audio/musica.mp3/Here With Me - d4vd.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio embutido.
+    </audio>
 
     <script>
         const btnNao = document.getElementById("nao");
@@ -163,7 +163,7 @@
             mensagemEscolha.style.display = "block";
 
             const img = document.createElement("img");
-            img.src = "https://i.pinimg.com/originals/c2/66/46/c26646ca9bd0a682a8561a81a49290bf.gif"; // GIF ao clicar em Sim
+            img.src = "https://i.pinimg.com/originals/c2/66/46/c26646ca9bd0a682a8561a81a49290bf.gif";
             img.width = 300;
             gifContainer.appendChild(img);
 
@@ -172,9 +172,19 @@
             }, 5000);
         });
 
-        // Força o autoplay da música caso o navegador bloqueie
-        document.addEventListener("click", () => {
-            backgroundMusic.play();
+        // Forçar autoplay da música ao carregar a página
+        document.addEventListener("DOMContentLoaded", () => {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const unlock = () => {
+                if (audioContext.state === "suspended") {
+                    audioContext.resume().then(() => {
+                        backgroundMusic.play().catch(() => {}); // Tenta reproduzir
+                    });
+                }
+                document.removeEventListener("click", unlock);
+            };
+            document.addEventListener("click", unlock);
+            backgroundMusic.play().catch(() => {}); // Primeira tentativa
         });
     </script>
 </body>
