@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para senhorita luz!🥰</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin-top: 50px;
+            background-color: rgb(235, 29, 29);
+            color: rgb(252, 252, 252);
+        }
+        #container {
+            position: relative;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        button {
+            font-size: 20px;
+            padding: 12px 24px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        #sim {
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+        }
+        #nao {
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+        }
+        #gif-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .gif-box {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        img {
+            display: block;
+            border-radius: 15px;
+            width: 150px;
+            height: auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .mensagem-nao {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-left: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        #mensagem-final, #mensagem-aceitou {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-top: 20px;
+            display: none;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        #mensagem-escolha {
+            font-size: 12px;
+            font-weight: normal;
+            color: white;
+            margin-top: 10px;
+            display: none;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 5px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Player de música (MP3) -->
+    <audio id="background-music" autoplay loop>
+        <source src="audio/musica.mp3/Here With Me - d4vd.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio embutido.
+    </audio>
+
+    <h1>Você gosta de mim?</h1>
+    <div id="container">
+        <button id="sim">Sim</button>
+        <button id="nao">Não</button>
+    </div>
+    <div id="gif-container"></div>
+    <div id="mensagem-final">Aceita por favor Gege 😢😭💔🥺</div>
+    <div id="mensagem-aceitou">Muito obrigado por aceitar querida! ❤️🥰</div>
+    <div id="mensagem-escolha">Ainda bem que vc tem escolha! ❤️❤️ kkkkkkkkkk beijos gege</div>
+
+    <script>
+        const btnNao = document.getElementById("nao");
+        const btnSim = document.getElementById("sim");
+        const gifContainer = document.getElementById("gif-container");
+        const mensagemFinal = document.getElementById("mensagem-final");
+        const mensagemAceitou = document.getElementById("mensagem-aceitou");
+        const mensagemEscolha = document.getElementById("mensagem-escolha");
+        const backgroundMusic = document.getElementById("background-music");
+
+        const gifs = [
+            "https://i.pinimg.com/originals/39/8f/41/398f4144995f2eefd11efe1d9ac6c6b2.gif",
+            "https://media.tenor.com/10UHuRm-xVoAAAAM/sad-cat.gif",
+            "https://media.tenor.com/KyTSHBMDmMIAAAAM/cat-crying-cat.gif",
+            "https://media.tenor.com/EN4UfInos98AAAAM/stands-online.gif"
+        ];
+
+        const mensagensNao = [
+            "Por favor, aceita! 🥺💔",
+            "Sério que não? 😭",
+            "Você tá me partindo o coração! 💔😢",
+            "Pensa bem, hein! 🥺💞"
+        ];
+
+        let gifIndex = 0;
+
+        btnNao.addEventListener("click", () => {
+            gifContainer.innerHTML = "";
+            if (gifIndex < gifs.length) {
+                const div = document.createElement("div");
+                div.classList.add("gif-box");
+
+                const img = document.createElement("img");
+                img.src = gifs[gifIndex];
+
+                const mensagem = document.createElement("div");
+                mensagem.classList.add("mensagem-nao");
+                mensagem.innerHTML = mensagensNao[gifIndex];
+
+                div.appendChild(img);
+                div.appendChild(mensagem);
+                gifContainer.appendChild(div);
+
+                gifIndex++;
+            } else {
+                mensagemFinal.style.display = "block";
+                btnNao.style.display = "none";
+            }
+        });
+
+        btnSim.addEventListener("click", () => {
+            gifContainer.innerHTML = "";
+            mensagemFinal.style.display = "none";
+            mensagemAceitou.style.display = "block";
+            mensagemEscolha.style.display = "block";
+
+            const img = document.createElement("img");
+            img.src = "https://i.pinimg.com/originals/c2/66/46/c26646ca9bd0a682a8561a81a49290bf.gif"; // GIF ao clicar em Sim
+            img.width = 300;
+            gifContainer.appendChild(img);
+
+            setTimeout(() => {
+                window.location.href = 'https://www.youtube.com/watch?v=gblyhRnU1sM&ab_channel=EstevaoQueirogaVEVO';
+            }, 5000);
+        });
+
+        // Força o autoplay da música caso o navegador bloqueie
+        document.addEventListener("click", () => {
+            backgroundMusic.play();
+        });
+    </script>
+</body>
+</html>
